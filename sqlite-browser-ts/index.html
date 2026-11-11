@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Gestión SQLite - UNIVO</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <link rel="stylesheet" href="/src/styles/styles.css" />
+</head>
+<body>
+
+  <div id="authContainer" class="auth-card">
+    <h2 id="authTitle">Iniciar Sesión</h2>
+    <p class="auth-subtitle">Acceso exclusivo para usuarios registrados</p>
+
+    <form id="authForm" onsubmit="return false;">
+      <input 
+        type="text" 
+        id="authUsername" 
+        placeholder="Nombre de usuario (mín. 3 caracteres)" 
+        minlength="3" 
+        required 
+        autocomplete="username" 
+      />
+      <input 
+        type="password" 
+        id="authPassword" 
+        placeholder="Contraseña (mín. 4 caracteres)" 
+        minlength="4" 
+        required 
+        autocomplete="current-password" 
+      />
+      <button type="submit" id="btnAuthSubmit">Ingresar</button>
+    </form>
+
+    <div id="authMessage" class="message"></div>
+
+    <div class="auth-switch">
+      <span id="authToggleText">¿No tienes cuenta?</span>
+      <a href="#" id="authToggleLink">Regístrate aquí</a>
+    </div>
+  </div>
+
+
+  <div id="appContainer" class="container" style="display: none;">
+    <header>
+      <div>
+        <h1>🗄️ Sistema de Gestión</h1>
+        <div class="badge-status" id="connectionBadge">Conectado a: Node.js + SQLite</div>
+      </div>
+      <div class="header-actions">
+        <p id="userSessionDisplay">Sesión activa</p>
+        <button type="button" id="btnLogout" class="btn-danger-outline">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <section class="form-section">
+      <h2 id="formTitle">Gestión de Usuario</h2>
+      <form id="userForm" onsubmit="return false;">
+        <input type="text" id="name" placeholder="Nombre completo" required />
+        <input type="email" id="email" placeholder="correo@ejemplo.com" required />
+        <button type="submit" id="btnSaveUser">➕ Agregar Usuario</button>
+      </form>
+      <div id="message" class="message"></div>
+    </section>
+
+    <section class="table-section">
+      <div class="toolbar">
+        <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o correo..." />
+        <button type="button" id="btnExport" class="btn-secondary">📥 Exportar CSV</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody"></tbody>
+      </table>
+
+      <div class="pagination">
+        <button type="button" id="btnPrev" class="btn-page">◀ Anterior</button>
+        <span id="pageInfo">Página 1 de 1</span>
+        <button type="button" id="btnNext" class="btn-page">Siguiente ▶</button>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
